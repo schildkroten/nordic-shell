@@ -38,8 +38,6 @@ export default function Workspaces({ length = 10 }) {
         label={icon}
         cssClasses={classes}
 	onClicked={() => ws.focus()}
-	halign={Gtk.Align.CENTER}
-	valign={Gtk.Align.CENTER}
 	hexpand
       />
     )

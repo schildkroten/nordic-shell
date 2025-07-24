@@ -36,7 +36,7 @@ window#TopBar {
   .battery {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
-    border-radius: 2px;
+    border-radius: 2px 11px 11px 2px;
     margin: 5px 0 5px 0;
     padding: 0 10px 0 10px;
 
@@ -54,10 +54,6 @@ window#TopBar {
       min-width: 100px;
       min-height: 10px;
     }
-  }
-
-  .volumeButton {
-    color: theme.$nord13;
   }
 
   .volume {
@@ -80,42 +76,6 @@ window#TopBar {
       border-radius: 5px;
       min-width: 100px;
       min-height: 10px;
-    }
-  }
-
-  .quickSettings {
-    background: theme.$nord01;
-    border: 1px solid theme.$nord02;
-    border-radius: 2px 11px 11px 2px;
-    margin: 5px 0 5px 0;
-  }
-
-  .quickSettingsWindow {
-    background: theme.$nord00;
-    border: 1px solid theme.$nord14;
-    border-radius: 5px;
-    padding: 10px;
-  
-
-    .bar {
-      background: theme.$nord01;
-      border: 1px solid theme.$nord02;
-      border-radius: 11px;
-
-      scale trough highlight {
-        all: unset;
-        background: theme.$nord14;
-        border-radius: 2px;
-        color: #000000;
-      }
-
-      scale trough {
-        all: unset;
-        background: theme.$nord03;
-        border-radius: 5px;
-        min-height: 130px;
-        min-width: 10px;
-      }
     }
   }
 }

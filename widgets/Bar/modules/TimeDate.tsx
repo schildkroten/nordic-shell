@@ -19,9 +19,9 @@ export default function TimeDate() {
 	spacing={10}
 	hexpand={false}
       >
-        <label
+        <image
 	  class="icon"
-	  label=""
+	  iconName="clock-app-symbolic"
 	  halign={Gtk.Align.END}
 	  hexpand
 	/>
@@ -37,9 +37,9 @@ export default function TimeDate() {
 	spacing={10}
 	hexpand={false}
       >
-        <label
+        <image
 	  class="icon"
-	  label=""
+	  iconName="text-calendar-symbolic"
 	  halign={Gtk.Align.END}
 	  hexpand
 	/>

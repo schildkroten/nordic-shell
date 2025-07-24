@@ -4,7 +4,6 @@ import Workspaces from "./modules/Workspaces"
 import TimeDate from "./modules/TimeDate"
 import Volume from "./modules/Volume"
 import Battery from "./modules/Battery"
-import QuickSettings from "./modules/QuickSettings"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
@@ -26,7 +25,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 	  <box $type="end" spacing={5}>
 	    <Volume />
 	    <Battery />
-	    <QuickSettings />
 	  </box>
 	</centerbox>
       </window>

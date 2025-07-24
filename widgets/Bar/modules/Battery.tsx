@@ -12,7 +12,6 @@ export default function Battery() {
     <box
       class="battery"
       spacing={10}
-      hexpand={false}
     >
       <image
         class="icon"
@@ -21,7 +20,6 @@ export default function Battery() {
       <slider
         value={charge}
 	sensitive={false}
-	hexpand
       />
     </box>
   )

@@ -13,8 +13,8 @@ export default function Volume() {
     <box
       class="volume"
       spacing={10}
-      hexpand={false}
     >
+      <Gtk.GestureClick onPressed={() => speaker.set_mute(!speaker.get_mute())} />
       <image
         class="icon"
 	iconName={icon}
@@ -22,7 +22,6 @@ export default function Volume() {
       <slider
 	value={volume}
 	onChangeValue={({ value }) => speaker.set_volume(value)}
-	hexpand
       />
     </box>
   )
