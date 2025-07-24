@@ -93,6 +93,7 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
 	  <label
 	    class="searchIcon"
 	    label=""
+	    widthRequest={45}
 	    halign={Gtk.Align.CENTER}
 	  />
           <SearchBox />
