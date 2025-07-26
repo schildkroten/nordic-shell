@@ -135,5 +135,19 @@ window#Settings {
     background: theme.$nord00;
     border: 1px solid theme.$nord14;
     border-radius: 5px;
+    padding: 10px;
+  }
+
+  .button {
+    background: theme.$nord01;
+    border: 1px solid theme.$nord02;
+    border-radius: 2px;
+    font-size: 22px;
+  }
+
+  .button:hover {
+    background: theme.$nord02;
+    color: theme.$nord13;
+    border: 1px solid theme.$nord14;
   }
 }

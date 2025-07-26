@@ -21,7 +21,6 @@
       astal4 # or astal3 for gtk3
       hyprland
       battery
-      powerprofiles
       wireplumber
       apps
     ];
@@ -29,8 +28,7 @@
     extraPackages =
       astalPackages
       ++ [
-        pkgs.libadwaita
-        pkgs.libsoup_3
+        pkgs.glib
       ];
   in {
     packages.${system} = {
@@ -56,6 +54,11 @@
 
           runHook postInstall
         '';
+
+	postBuild = ''
+	  install -Dm644 data/nordic-shell.gschema.xml -t $out/share/gsettings-schemas/$name/glib-2.0/schemas
+	  glib-compile-schemas $out/share/gsettings-schemas/$name/glib-2.0/schemas
+	'';
       };
     };
 

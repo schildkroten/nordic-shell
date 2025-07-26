@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+  <schema path="/nordic-shell/" id="nordic-shell">
+    <key name="int" type="i">
+      <default>10</default>
+    </key>
+    <key name="bool" type="b">
+      <default>false</default>
+    </key>
+    <key name="string" type="s">
+      <default>"Hello, World!"</default>
+    </key>
+  </schema>
+</schemalist>
