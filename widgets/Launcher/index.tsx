@@ -1,4 +1,4 @@
-import app from "ags/gtk4/app"
+import App from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { For, createState } from "ags"
 import AstalApps from "gi://AstalApps"
@@ -73,7 +73,7 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.IGNORE}
       layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.EXCLUSIVE}
-      application={app}
+      application={App}
       onNotifyVisible={({ visible }) => {
         if (visible) {
           searchBox.grab_focus()
@@ -88,6 +88,7 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
 	orientation={Gtk.Orientation.VERTICAL}
 	halign={Gtk.Align.CENTER}
 	valign={Gtk.Align.CENTER}
+	spacing={5}
       >
         <box spacing={5}>
 	  <label
@@ -100,8 +101,9 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
 	</box>
 	<scrolledwindow
 	  $={self => scrolled = self}
-	  heightRequest={gdkmonitor.get_geometry().height * 0.35}>
-	  <box orientation={Gtk.Orientation.VERTICAL}>
+	  heightRequest={gdkmonitor.get_geometry().height * 0.35}
+	>
+	  <box orientation={Gtk.Orientation.VERTICAL} spacing={5}>
 	    <For each={appList}>{(app) => <AppButton app={app} />}</For>
 	  </box>
 	</scrolledwindow>

@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schemalist>
   <schema path="/nordic-shell/" id="nordic-shell">
-    <key name="int" type="i">
-      <default>10</default>
+    <key name="general-border-size" type="i">
+      <default>1</default>
     </key>
-    <key name="bool" type="b">
+    <key name="general-no-border-on-floating" type="b">
       <default>false</default>
     </key>
-    <key name="string" type="s">
-      <default>"Hello, World!"</default>
+    <key name="general-gaps-in" type="i">
+      <default>3</default>
+    </key>
+    <key name="general-gaps-out" type="i">
+      <default>6</default>
+    </key>
+    <key name="general-float-gaps" type="i">
+      <default>0</default>
+    </key>
+    <key name="general-gaps-workspaces" type="i">
+      <default>0</default>
+    </key>
+    <key name="general-col-inactive-border" type="s">
+      <default>"0xff444444"</default>
+    </key>
+    <key name="general-col-active-border" type="s">
+      <default>"0xffffffff"</default>
+    </key>
+    <key name="general-col-nogroup-border" type="s">
+      <default>"0xffffaaff"</default>
+    </key>
+    <key name="general-col-nogroup-border-active" type="s">
+      <default>"0xffff00ff"</default>
+    </key>
+    <key name="general-layout" type="s">
+      <default>"dwindle"</default>
+    </key>
+    <key name="general-no-focus-fallback" type="b">
+      <default>false</default>
+    </key>
+    <key name="general-resize-on-border" type="b">
+      <default>false</default>
+    </key>
+    <key name="general-extend-border-grab-area" type="i">
+      <default>15</default>
+    </key>
+    <key name="general-hover-icon-on-border" type="b">
+      <default>true</default>
+    </key>
+    <key name="general-allow-tearing" type="b">
+      <default>false</default>
+    </key>
+    <key name="general-resize-corner" type="i">
+      <default>0</default>
     </key>
   </schema>
 </schemalist>

@@ -1,4 +1,4 @@
-import app from "ags/gtk4/app"
+import App from "ags/gtk4/app"
 import { Astal, Gdk } from "ags/gtk4"
 import Workspaces from "./modules/Workspaces"
 import TimeDate from "./modules/TimeDate"

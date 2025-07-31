@@ -8,45 +8,65 @@
 window#TopBar {
   background: theme.$nord00;
   border-bottom: 1px solid theme.$nord14;
-  padding: 0 6px;
+  padding: 0 6px 0 6px;
 
   .icon { color: theme.$nord13; }
 
   .time, .date {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
-    margin: 5px 0;
-
-    &.time { border-radius: 11px 5px 5px 11px; }
-    &.date { border-radius: 5px 11px 11px 5px; }
+    margin: 5px 0 5px 0;
   }
+
+  .time { border-radius: 11px 2px 2px 11px; }
+  .date { border-radius: 2px 11px 11px 2px; }
 
   .workspaces {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
     border-radius: 11px;
-    margin: 5px 0;
+    margin: 5px 0 5px 0;
   }
 
-  .workspaceButton { color: theme.$nord03; transition: color 0.2s; }
+  .workspaceButton { color: theme.$nord03; }
   .occupiedWorkspace { color: theme.$nord04; }
   .workspaceButton:hover,
   .focusedWorkspace { color: theme.$nord13; }
 
-  .battery,
-  .volume {
+  .battery {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
-    margin: 5px 0;
-    padding: 0 10px;
-
-    &.battery { border-radius: 5px 11px 11px 5px; }
-    &.volume { border-radius: 11px 5px 5px 11px; }
+    border-radius: 2px 11px 11px 2px;
+    margin: 5px 0 5px 0;
+    padding: 0 10px 0 10px;
 
     scale trough highlight {
       all: unset;
       background: theme.$nord14;
+      border-radius: 2px;
+      color: #000000;
+    }
+
+    scale trough {
+      all: unset;
+      background: theme.$nord03;
       border-radius: 5px;
+      min-width: 100px;
+      min-height: 10px;
+    }
+  }
+
+  .volume {
+    background: theme.$nord01;
+    border: 1px solid theme.$nord02;
+    border-radius: 11px 2px 2px 11px;
+    margin: 5px 0 5px 0;
+    padding: 0 10px 0 10px;
+
+    scale trough highlight {
+      all: unset;
+      background: theme.$nord14;
+      border-radius: 2px;
       color: #000000;
     }
 
@@ -63,7 +83,7 @@ window#TopBar {
 window#BottomBar {
   background: theme.$nord00;
   border-top: 1px solid theme.$nord14;
-  padding: 0 6px;
+  padding: 0 6px 0 6px;
 }
 
 window#Launcher {
@@ -75,33 +95,38 @@ window#Launcher {
   }
 
   .searchIcon {
-    background: theme.$nord01;
+    background: theme.$nord00;
     color: theme.$nord13;
     border: 1px solid theme.$nord14;
-    border-radius: 5px;
+    border-radius: 2px;
+    margin-bottom: 2px;
   }
 
   .searchBox {
-    background: theme.$nord01;
+    background: theme.$nord00;
     border: 1px solid theme.$nord14;
-    border-radius: 5px;
+    border-radius: 2px;
+    margin-bottom: 2px;
     min-height: 40px;
 
-    text { margin-left: 5px; }
+    text {
+      margin-left: 5px;
+    }
   }
 
   .appButton {
-    background: theme.$nord01;
+    background: theme.$nord00;
     border: 1px solid theme.$nord02;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 2px;
+    margin: 2px 0 2px 0;
+    padding: 5px 10px 5px 10px;
     min-height: 30px;
+  }
 
-    &:hover {
-      background: theme.$nord02;
-      color: theme.$nord13;
-      border: 1px solid theme.$nord14;
-    }
+  .appButton:hover {
+    background: theme.$nord01;
+    color: theme.$nord13;
+    border: 1px solid theme.$nord14;
   }
 }
 
@@ -110,28 +135,6 @@ window#Settings {
     background: theme.$nord00;
     border: 1px solid theme.$nord14;
     border-radius: 5px;
-    padding: 5px;
-  }
-
-  .settingBox {
-    background: theme.$nord01;
-    border: 1px solid theme.$nord02;
-    border-radius: 5px;
     padding: 10px;
-  }
-
-  .switch {
-    background: theme.$nord02;
-    border: 1px solid theme.$nord03;
-    border-radius: 20px;
-
-    slider {
-      background: theme.$nord03;
-      border-radius: 20px;
-    }
-
-    &:checked slider {
-      background: theme.$nord14;
-    }
   }
 }
