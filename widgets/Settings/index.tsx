@@ -8,7 +8,7 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
   const Hyprland = AstalHyprland.get_default()
 
-  const sections = Object.freeze({
+  const sections = {
     general: Gtk.ScrolledWindow,
     decoration: Gtk.ScrolledWindow,
     animations: Gtk.ScrolledWindow,
@@ -16,7 +16,7 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
     gestures: Gtk.ScrolledWindow,
     group: Gtk.ScrolledWindow,
     misc: Gtk.ScrolledWindow,
-  })
+  }
 
   const s = new Gio.Settings({ schemaId: "nordic-shell" }) 
   const settings = createSettings(s, {
