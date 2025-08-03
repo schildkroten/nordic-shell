@@ -50,7 +50,7 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
   }
 
   const test = Object.freeze(settings.general)
-  settings.general.setGapsOut(10)
+  settings.general.setGapsOut(prev => prev - 1)
   console.log(settings.general === test)
 
   async function apply() {
