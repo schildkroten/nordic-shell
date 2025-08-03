@@ -56,7 +56,7 @@
         '';
 
 	postBuild = ''
-	  install -Dm644 data/gschema.xml -t $out/share/gsettings-schemas/$name/glib-2.0/schemas
+	  install -Dm644 data/nordic-shell.gschema.xml -t $out/share/gsettings-schemas/$name/glib-2.0/schemas
 	  glib-compile-schemas $out/share/gsettings-schemas/$name/glib-2.0/schemas
 	'';
       };
