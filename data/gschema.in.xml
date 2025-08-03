@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+  <schema path="/nordic-shell/hyprland/general/" id="nordic-shell.hyprland.general">
+    <key name="border-size" type="i">
+      <default>1</default>
+    </key>
+    <key name="no-border-on-floating" type="b">
+      <default>false</default>
+    </key>
+    <key name="gaps-in" type="i">
+      <default>5</default>
+    </key>
+    <key name="gaps-out" type="i">
+      <default>20</default>
+    </key>
+    <key name="float-gaps" type="i">
+      <default>0</default>
+    </key>
+    <key name="gaps-workspaces" type="i">
+      <default>0</default>
+    </key>
+    <key name="col-inactive-border" type="s">
+      <default>"0xff444444"</default>
+    </key>
+    <key name="col-active-border" type="s">
+      <default>"0xffffffff"</default>
+    </key>
+    <key name="col-nogroup-border" type="s">
+      <default>"0xffffaaff"</default>
+    </key>
+    <key name="col-nogroup-border-active" type="s">
+      <default>"0xffff00ff"</default>
+    </key>
+    <key name="layout" type="s">
+      <default>"dwindle"</default>
+    </key>
+    <key name="no-focus-fallback" type="b">
+      <default>false</default>
+    </key>
+    <key name="resize-on-border" type="b">
+      <default>false</default>
+    </key>
+    <key name="extend-border-grab-area" type="i">
+      <default>15</default>
+    </key>
+    <key name="hover-icon-on-border" type="b">
+      <default>true</default>
+    </key>
+    <key name="allow-tearing" type="b">
+      <default>false</default>
+    </key>
+    <key name="resize-corner" type="i">
+      <default>0</default>
+    </key>
+  </schema>
+  <schema path="/nordic-shell/hyprland/decoration/" id="nordic-shell.hyprland.decoration">
+    <key name="rounding" type="i">
+      <default>0</default>
+    </key>
+    <key name="rounding-power" type="d">
+      <default>2.0</default>
+      <range min="2.0" max="10.0" />
+    </key>
+    <key name="active-opacity" type="d">
+      <default>1.0</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="inactive-opacity" type="d">
+      <default>1.0</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="fullscreen-opacity" type="d">
+      <default>1.0</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="dim-inactive" type="b">
+      <default>false</default>
+    </key>
+    <key name="dim-strength" type="d">
+      <default>0.5</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="dim-special" type="d">
+      <default>0.2</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="dim-around" type="d">
+      <default>0.4</default>
+      <range min="0.0" max="1.0" />
+    </key>
+    <key name="screen-shader" type="s">
+      <default>"[[EMPTY]]"</default>
+    </key>
+    <key name="border-part-of-window" type="b">
+      <default>true</default>
+    </key>
+  </schema>
+</schemalist>

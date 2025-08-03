@@ -6,42 +6,14 @@ export default function Workspaces({ length = 10 }) {
   const Hyprland = AstalHyprland.get_default()
 
   const workspaces = createBinding(Hyprland, "workspaces")
+  const focusedWorkspace = createBinding(Hyprland, "focusedWorkspace")
 
-  const fixed = workspaces(() =>
+  const fixedWorkspaces = workspaces(() =>
     Array.from(
       { length },
       (_, i) => Hyprland.get_workspace(i + 1) || AstalHyprland.Workspace.dummy(i + 1, null),
     ),
   )
-
-  function WorkspaceButton({ ws }: { ws: AstalHyprland.Workspace }) {
-    const fws = createBinding(Hyprland, "focusedWorkspace")
-    const clients = createBinding(ws, "clients")
-
-    const icon = createComputed(
-      [fws, clients],
-      (fws, clients) =>
-        ws === fws || clients.length > 0 ? "" : ""
-    )
-
-    const classes = createComputed(
-      [fws, clients],
-      (fws, clients) => [
-	"workspaceButton",
-	...(clients.length > 0 ? ["occupiedWorkspace"] : []),
-	...(fws === ws ? ["focusedWorkspace"] : []),
-      ]
-    )
-
-    return (
-      <button
-        label={icon}
-        cssClasses={classes}
-	onClicked={() => ws.focus()}
-	hexpand
-      />
-    )
-  }
 
   return (
     <box
@@ -49,8 +21,30 @@ export default function Workspaces({ length = 10 }) {
       widthRequest={300}
       hexpand={false}
     >
-      <For each={length <= 0 ? workspace : fixed}>
-	{ws => <WorkspaceButton ws={ws} />}
+      <For each={length <= 0 ? workspace : fixedWorkspaces}>
+	{workspace => {
+	    const clients = createBinding(workspace, "clients")
+	    return (
+	      <button
+		label={createComputed(
+		  [focusedWorkspace, clients],
+		  (focusedWorkspace, clients) =>
+		    workspace === focusedWorkspace || clients.length > 0 ? "" : ""
+		)}
+		cssClasses={createComputed(
+		  [focusedWorkspace, clients],
+		  (focusedWorkspace, clients) => [
+		    "workspaceButton",
+		    ...(clients.length > 0 ? ["occupiedWorkspace"] : []),
+		    ...(focusedWorkspace === workspace ? ["focusedWorkspace"] : []),
+		  ]
+		)}
+		onClicked={workspace.focus}
+		hexpand
+	      />
+	    )
+	  }
+	}
       </For>
     </box>
   )

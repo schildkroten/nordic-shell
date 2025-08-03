@@ -8,50 +8,61 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
   const Hyprland = AstalHyprland.get_default()
 
-  const sections = {
-    general: Gtk.ScrolledWindow,
-    decoration: Gtk.ScrolledWindow,
-    animations: Gtk.ScrolledWindow,
-    input: Gtk.ScrolledWindow,
-    gestures: Gtk.ScrolledWindow,
-    group: Gtk.ScrolledWindow,
-    misc: Gtk.ScrolledWindow,
+  const settings = {
+    general: createSettings(
+      new Gio.Settings({ schemaId: "nordic-shell.hyprland.general" }),
+      {
+	"border-size": "i",
+	"no-border-on-floating": "b",
+	"gaps-in": "i",
+	"gaps-out": "i",
+	"float-gaps": "i",
+	"gaps-workspaces": "i",
+	"col-inactive-border": "s",
+	"col-active-border": "s",
+	"col-nogroup-border": "s",
+	"col-nogroup-border-active": "s",
+	"layout": "s",
+	"no-focus-fallback": "b",
+	"resize-on-border": "b",
+	"extend-border-grab-area": "i",
+	"hover-icon-on-border": "b",
+	"allow-tearing": "b",
+	"resize-corner": "i"
+      }
+    ),
+    decoration: createSettings(
+      new Gio.Settings({ schemaId: "nordic-shell.hyprland.decoration" }),
+      {
+	"rounding": "i",
+	"rounding-power": "d",
+	"active-opacity": "d",
+	"inactive-opacity": "d",
+	"fullscreen-opacity": "d",
+	"dim-inactive": "b",
+	"dim-strength": "d",
+	"dim-special": "d",
+	"dim-around": "d",
+	"screen-shader": "s",
+	"border-part-of-window": "b",
+      }
+    ),
   }
 
-  const s = new Gio.Settings({ schemaId: "nordic-shell" }) 
-  const settings = createSettings(s, {
-    "general-border-size": "i",
-    "general-no-border-on-floating": "b",
-    "general-gaps-in": "i",
-    "general-gaps-out": "i",
-    "general-float-gaps": "i",
-    "general-gaps-workspaces": "i",
-    "general-col-inactive-border": "s",
-    "general-col-active-border": "s",
-    "general-col-nogroup-border": "s",
-    "general-col-nogroup-border-active": "s",
-    "general-layout": "s",
-    "general-no-focus-fallback": "b",
-    "general-resize-on-border": "b",
-    "general-extend-border-grab-area": "i",
-    "general-hover-icon-on-border": "b",
-    "general-allow-tearing": "b",
-    "general-resize-corner": "i",
-  })
+  const test = Object.freeze(settings.general)
+  settings.general.setGapsOut(10)
+  console.log(settings.general === test)
 
   async function apply() {
-    Object.keys(settings)
-      .filter(key => !key.includes("set"))
-        .map((key, index) => {
-	  const value = settings[key as keyof s].get()
-	  const name = key
-            .replace(/([a-z])([A-Z])/g, "$1_$2")
-              .replace("_", ":")
-	        .replace(/(Col)_/, "$1.")
-	          .toLowerCase()
+    Object.keys(settings).map(section => {
+      Object.keys(settings[section])
+        .filter(key => !key.includes("set"))
+	  .map(key => {
+	    const value = settings[section][key].get()
+	    const setting = key.replace(/([a-z])([A-Z])/g, "$1_$2").replace(/(col)_/g, "$1.").toLowerCase()
 
-	  console.log(`message: 'keyword ${name} ${value}' sent to Hyprland`)
-	  console.log(Hyprland.message(`keyword ${name} ${value}`))
+	    console.log(Hyprland.message(`keyword ${section}:${setting} ${value}`))
+          })
     })
   }
 
@@ -64,21 +75,9 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
       >
         <label
 	  $type="start"
-	  label={
-	    setting.replace(/-/g, " ")
-	      .replace(/^\s*\S+\s*/, '')
-	        .replace(/(col) /, "$1.")
-	  }
+	  label={setting}
         />
 	<entry
-	  $={self => {
-	    s.bind(
-	      setting,
-	      self,
-	      "text",
-	      Gio.SettingsBindFlags.DEFAULT
-	    )
-	  }}
 	  $type="end"
 	/>
       </centerbox>
@@ -94,19 +93,9 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
       >
         <label
 	  $type="start"
-	  label={
-	    setting.replace(/-/g, " ")
-	      .replace(/^\s*\S+\s*/, '')}
+	  label={setting}
         />
 	<switch
-	  $={self => {
-	    s.bind(
-	      setting,
-	      self,
-	      "active",
-	      Gio.SettingsBindFlags.DEFAULT
-	    )
-	  }}
 	  $type="end"
 	  class="switch"
 	  widthRequest={50}
@@ -136,27 +125,17 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
 	valign={Gtk.Align.CENTER}
       >
         <scrolledwindow
-	  $={self => sections.general = self}
 	  vexpand
 	>
 	  <box orientation={Gtk.Orientation.VERTICAL} spacing={5}>
-	    {Object.keys(settings)
-	      .filter(key => !key.includes("set"))
-		.map((key, index) => {
-		  const setting = key.replace(/([A-Z])/g, "-$1").toLowerCase()
-
-		  switch (typeof settings[key as keyof s].get()) {
-		    case 'number':
-		      return <label label={setting} />
-
-		    case 'string':
-		      return <StringSetting setting={setting} />
-
-		    case 'boolean':
-		      return <BooleanSetting setting={setting} />
-		  }
-		})
-	    }
+	    {}
+	  </box>
+	</scrolledwindow>
+	<scrolledwindow
+	  vexpand
+	>
+	  <box>
+	    {}
 	  </box>
 	</scrolledwindow>
       </box>
