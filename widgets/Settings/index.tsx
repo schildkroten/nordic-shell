@@ -5,7 +5,6 @@ import AstalHyprland from "gi://AstalHyprland"
 import Gio from "gi://Gio"
 
 export default function Settings(gdkmonitor: Gdk.Monitor) {
-  const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
   const Hyprland = AstalHyprland.get_default()
 
   const sections = {
@@ -151,19 +150,14 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
     <window
       visible={false}
       name="Settings"
-      anchor={TOP | BOTTOM | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
       layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.EXCLUSIVE}
       application={App}
+      defaultWidth={gdkmonitor.get_geometry().width * 0.5}
+      defaultHeight={gdkmonitor.get_geometry().height * 0.5}
     >
-      <box
-        class="contentBox"
-	widthRequest={gdkmonitor.get_geometry().width * 0.6}
-	heightRequest={gdkmonitor.get_geometry().height * 0.6}
-	halign={Gtk.Align.CENTER}
-	valign={Gtk.Align.CENTER}
-      >
+      <box spacing={5}>
      	<box orientation={Gtk.Orientation.VERTICAL} vexpand>
 	  <button
 	    label="general"

@@ -69,7 +69,6 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
       $={self => win = self}
       visible={false}
       name="Launcher"
-      anchor={TOP | BOTTOM | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
       layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.EXCLUSIVE}
@@ -80,14 +79,12 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
 	  scrolled.set_vadjustment(null)
 	} else searchBox.set_text("")
       }}
+      defaultWidth={gdkmonitor.get_geometry().width * 0.4}
+      defaultHeight={gdkmonitor.get_geometry().height * 0.35}
     >
       <Gtk.EventControllerKey onKeyPressed={onKey} />
       <box
-        class="contentBox"
-	widthRequest={gdkmonitor.get_geometry().width * 0.4}
 	orientation={Gtk.Orientation.VERTICAL}
-	halign={Gtk.Align.CENTER}
-	valign={Gtk.Align.CENTER}
 	spacing={5}
       >
         <box spacing={5}>
@@ -95,13 +92,12 @@ export default function Launcher(gdkmonitor: Gdk.Monitor) {
 	    class="searchIcon"
 	    label=""
 	    widthRequest={45}
-	    halign={Gtk.Align.CENTER}
 	  />
           <SearchBox />
 	</box>
 	<scrolledwindow
 	  $={self => scrolled = self}
-	  heightRequest={gdkmonitor.get_geometry().height * 0.35}
+	  vexpand
 	>
 	  <box orientation={Gtk.Orientation.VERTICAL} spacing={5}>
 	    <For each={appList}>{(app) => <AppButton app={app} />}</For>

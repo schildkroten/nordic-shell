@@ -67,12 +67,10 @@ window#BottomBar {
 }
 
 window#Launcher {
-  .contentBox {
-    background: theme.$nord00;
-    border: 1px solid theme.$nord14;
-    border-radius: 5px;
-    padding: 5px;
-  }
+  background: theme.$nord00;
+  border: 1px solid theme.$nord14;
+  border-radius: 5px;
+  padding: 5px;
 
   .searchIcon {
     background: theme.$nord01;
@@ -106,12 +104,10 @@ window#Launcher {
 }
 
 window#Settings {
-  .contentBox {
-    background: theme.$nord00;
-    border: 1px solid theme.$nord14;
-    border-radius: 5px;
-    padding: 5px;
-  }
+  background: theme.$nord00;
+  border: 1px solid theme.$nord14;
+  border-radius: 5px;
+  padding: 5px;
 
   .entry {
     background: theme.$nord01;
