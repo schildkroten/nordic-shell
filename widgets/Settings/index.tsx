@@ -2,7 +2,6 @@ import App from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { For, createSettings } from "ags"
 import AstalHyprland from "gi://AstalHyprland"
-import GLib from "gi://GLib"
 import Gio from "gi://Gio"
 
 export default function Settings(gdkmonitor: Gdk.Monitor) {
