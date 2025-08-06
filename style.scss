@@ -113,11 +113,10 @@ window#Settings {
     padding: 5px;
   }
 
-  .settingBox {
+  .entry {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
     border-radius: 5px;
-    padding: 10px;
   }
 
   .switch {

@@ -2,15 +2,21 @@ import App from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { For, createSettings } from "ags"
 import AstalHyprland from "gi://AstalHyprland"
+import GLib from "gi://GLib"
 import Gio from "gi://Gio"
 
 export default function Settings(gdkmonitor: Gdk.Monitor) {
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
   const Hyprland = AstalHyprland.get_default()
 
+  const sections = {
+    general: Gtk.ScrolledWindow,
+    decoration: Gtk.ScrolledWindow,
+  }
+
   const settings = {
     general: createSettings(
-      new Gio.Settings({ schemaId: "nordic-shell.hyprland.general" }),
+      new Gio.Settings({ schemaId: "nordic-shell.general" }),
       {
 	"border-size": "i",
 	"no-border-on-floating": "b",
@@ -32,7 +38,7 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
       }
     ),
     decoration: createSettings(
-      new Gio.Settings({ schemaId: "nordic-shell.hyprland.decoration" }),
+      new Gio.Settings({ schemaId: "nordic-shell.decoration" }),
       {
 	"rounding": "i",
 	"rounding-power": "d",
@@ -49,9 +55,6 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
     ),
   }
 
-  const test = Object.freeze(settings.general)
-  settings.general.setGapsOut(prev => prev - 1)
-  console.log(settings.general === test)
 
   async function apply() {
     Object.keys(settings).map(section => {
@@ -62,46 +65,84 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
 	    const setting = key.replace(/([a-z])([A-Z])/g, "$1_$2").replace(/(col)_/g, "$1.").toLowerCase()
 
 	    console.log(Hyprland.message(`keyword ${section}:${setting} ${value}`))
-          })
+	  })
     })
   }
 
-  function StringSetting({ setting }: { setting: string }) {
-    return (
-      <centerbox
-        class="settingBox"
-        valign={Gtk.Align.CENTER}
-	hexpand
-      >
-        <label
-	  $type="start"
-	  label={setting}
-        />
-	<entry
-	  $type="end"
-	/>
-      </centerbox>
-    )
+  function switchSection(section: string) {
+    Object.keys(sections).map(section => {
+      sections[section].visible = false
+    })
+
+    sections[section].visible = true
   }
 
-  function BooleanSetting({ setting }: { setting: string }) {
+  function Section({ section, ...props }: { section: string }) {
     return (
-      <centerbox
-        class="settingBox"
-        valign={Gtk.Align.CENTER}
-	hexpand
-      >
-        <label
-	  $type="start"
-	  label={setting}
-        />
-	<switch
-	  $type="end"
-	  class="switch"
-	  widthRequest={50}
-	  heightRequest={20}
-	/>
-      </centerbox>
+      <scrolledwindow $={self => sections[section] = self} visible={false} hexpand vexpand {...props}>
+        <box orientation={Gtk.Orientation.VERTICAL} spacing={5}>
+	  {Object.keys(settings[section])
+            .filter(key => !key.includes("set"))
+	      .map(key => {
+		const s = new Gio.Settings({ schemaId: `nordic-shell.${section}` })
+		const setting = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()
+
+		switch (typeof settings[section][key].get()) {
+		  case "number":
+		    const settingsSchemaKey = s.settingsSchema.get_key(setting)
+		    const range = settingsSchemaKey.get_range().recursiveUnpack()
+
+		    return (
+		      <centerbox>
+			<label $type="start" label={key} />
+			<Gtk.SpinButton
+			  $={self => s.bind(setting, self, "value", Gio.SettingsBindFlags.DEFAULT)}
+			  $type="end"
+			  digits={!Number.isInteger(settings[section][key].get()) ? 1 : 0}
+			  widthChars={3}
+			>
+			  <Gtk.Adjustment
+			    lower={range[0] === "range" ? range[1][0] : 0}
+			    upper={range[0] === "range" ? range[1][1] : 100}
+			    stepIncrement={!Number.isInteger(settings[section][key].get()) ? 0.1 : 1}
+			  />
+			</Gtk.SpinButton>
+		      </centerbox>
+		    )
+
+		  case "string":
+		    return (
+		      <centerbox>
+			<label $type="start" label={key} />
+			<entry
+			  $={self => s.bind(setting, self, "text", Gio.SettingsBindFlags.DEFAULT)}
+			  $type="end"
+			  class="entry"
+			/>
+		      </centerbox>
+		    )
+		  
+		  case "boolean":
+		    return (
+		      <centerbox>
+			<label $type="start" label={key} />
+			<switch
+			  $={self => s.bind(setting, self, "active", Gio.SettingsBindFlags.DEFAULT)}
+			  $type="end"
+			  class="switch"
+			  widthRequest={50}
+			  heightRequest={20}
+			/>
+		      </centerbox>
+		    )
+
+		  default:
+		    return <label label={key} />
+		}
+	      })
+	  }
+	</box>
+      </scrolledwindow>
     )
   }
 
@@ -124,20 +165,26 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
 	halign={Gtk.Align.CENTER}
 	valign={Gtk.Align.CENTER}
       >
-        <scrolledwindow
-	  vexpand
-	>
-	  <box orientation={Gtk.Orientation.VERTICAL} spacing={5}>
-	    {}
-	  </box>
-	</scrolledwindow>
-	<scrolledwindow
-	  vexpand
-	>
-	  <box>
-	    {}
-	  </box>
-	</scrolledwindow>
+     	<box orientation={Gtk.Orientation.VERTICAL} vexpand>
+	  <button
+	    label="general"
+	    onCLicked={() => switchSection("general")}
+	    valign={Gtk.Align.START}
+	  />
+	  <button
+	    label="decoration"
+	    onClicked={() => switchSection("decoration")}
+	    valign={Gtk.Align.START}
+	  />
+	  <button
+	    label="Apply"
+	    onClicked={apply}
+	    valign={Gtk.Align.END}
+	    vexpand
+	  />
+	</box>
+	<Section visible={true} section="general" />
+	<Section section="decoration" />
       </box>
     </window>
   )
