@@ -46,7 +46,7 @@ window#TopBar {
     scale trough highlight {
       all: unset;
       background: theme.$nord14;
-      border-radius: 5px;
+      border-radius: 2px;
       color: #000000;
     }
 
@@ -83,9 +83,8 @@ window#Launcher {
     background: theme.$nord01;
     border: 1px solid theme.$nord14;
     border-radius: 5px;
+    padding: 2px 5px;
     min-height: 40px;
-
-    text { margin-left: 5px; }
   }
 
   .appButton {
@@ -109,10 +108,31 @@ window#Settings {
   border-radius: 5px;
   padding: 5px;
 
+  .spinButton {
+    background: theme.$nord01;
+    border: 1px solid theme.$nord02;
+    border-radius: 5px;
+    padding: 2px 0 2px 5px;
+
+    text selection { background: theme.$nord10; }
+
+
+    button.down, button.up {
+      border-left: 1px solid theme.$nord02;
+      padding: 0 5px;
+    }
+
+    button.down:hover { color: theme.$nord13; }
+    button.up:hover { color: theme.$nord13; }
+  }
+
   .entry {
     background: theme.$nord01;
     border: 1px solid theme.$nord02;
     border-radius: 5px;
+    padding: 2px 5px;
+
+    text selection { background: theme.$nord10; }
   }
 
   .switch {

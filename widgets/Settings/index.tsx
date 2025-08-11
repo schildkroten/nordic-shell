@@ -53,7 +53,6 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
     ),
   }
 
-
   async function apply() {
     Object.keys(settings).map(section => {
       Object.keys(settings[section])
@@ -62,7 +61,7 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
 	    const value = settings[section][key].get()
 	    const setting = key.replace(/([a-z])([A-Z])/g, "$1_$2").replace(/(col)_/g, "$1.").toLowerCase()
 
-	    console.log(Hyprland.message(`keyword ${section}:${setting} ${value}`))
+	    console.log(`keyword ${section}:${setting} ${value}: ${Hyprland.message(`keyword ${section}:${setting} ${value}`)}`)
 	  })
     })
   }
@@ -96,13 +95,14 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
 			<Gtk.SpinButton
 			  $={self => s.bind(setting, self, "value", Gio.SettingsBindFlags.DEFAULT)}
 			  $type="end"
-			  digits={!Number.isInteger(settings[section][key].get()) ? 1 : 0}
-			  widthChars={3}
+			  class="spinButton"
+			  digits={settingsSchemaKey.get_value_type().dup_string() === "d" ? 1 : 0}
+			  widthChars={4}
 			>
 			  <Gtk.Adjustment
 			    lower={range[0] === "range" ? range[1][0] : 0}
 			    upper={range[0] === "range" ? range[1][1] : 100}
-			    stepIncrement={!Number.isInteger(settings[section][key].get()) ? 0.1 : 1}
+			    stepIncrement={settingsSchemaKey.get_value_type().dup_string() === "d" ? 0.1 : 1}
 			  />
 			</Gtk.SpinButton>
 		      </centerbox>
@@ -154,8 +154,8 @@ export default function Settings(gdkmonitor: Gdk.Monitor) {
       layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.EXCLUSIVE}
       application={App}
-      defaultWidth={gdkmonitor.get_geometry().width * 0.5}
-      defaultHeight={gdkmonitor.get_geometry().height * 0.5}
+      defaultWidth={gdkmonitor.get_geometry().width * 0.6}
+      defaultHeight={gdkmonitor.get_geometry().height * 0.6}
     >
       <box spacing={5}>
      	<box orientation={Gtk.Orientation.VERTICAL} vexpand>
